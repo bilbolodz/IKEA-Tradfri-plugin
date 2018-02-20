@@ -19,7 +19,7 @@ $(tradfri-server): $(tradfri-server-src)
 	cd src/tradfri-server; go get -v; go install -v
 
 $(tradfri-src) $(tradfri-server-src):
-	git submodule init; git submodule update -f
+	git submodule init; git submodule update -f --remote
 
 
 
