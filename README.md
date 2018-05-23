@@ -8,10 +8,16 @@ Since domoticz plugins doesn't support COAP and also doesn't allow threads or as
 2. golang tool-chain
 3. libssl
 
-## Installing requirements on linux/raspberry pi
+## Installing requirements on debian/raspbian
 ```shell
   $ sudo apt-get install golang libssl-dev
 ```
+
+## Installing requirements on fedora
+```shell
+  $ sudo dnf install golang openssl-devel
+```
+
 ## Installing requirements on macOS (using homebrew)
 ```shell
   $ brew install openssl@1.1
@@ -20,6 +26,8 @@ Since domoticz plugins doesn't support COAP and also doesn't allow threads or as
 
 # Building the tradfri-server and commandline tool
 ```shell
+  $ git clone https://github.com/moroen/IKEA-Tradfri-plugin.git
+  $ cd IKEA-Tradfri-plugin
   $ make
 ```
 

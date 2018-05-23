@@ -6,16 +6,17 @@ src = $(srcdir)/coap.c $(srcdir)/coap.go
 
 tradfri = bin/tradfri
 tradfri-src = src/tradfri/*
+tradfri-own-deps = src/github.com/moroen/canopus/* src/github.com/moroen/go-tradfricoap/*
 
 tradfri-server = bin/tradfri-server
 tradfri-server-src = src/tradfri-server/*
 
 all: $(tradfri) $(tradfri-server) 
 
-$(tradfri): $(tradfri-src) 
+$(tradfri): $(tradfri-src) $(tradfri-own-deps)
 	cd src/tradfri; go get -v; go install -v
 
-$(tradfri-server): $(tradfri-server-src)
+$(tradfri-server): $(tradfri-server-src) $(tradfri-own-deps)
 	cd src/tradfri-server; go get -v; go install -v
 
 $(tradfri-src) $(tradfri-server-src):

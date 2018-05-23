@@ -26,6 +26,7 @@ import json
 
 class BasePlugin:
     httpConn = None
+    httpServerCon = None
     runAgain = 6
 
     lights = {}
@@ -143,13 +144,18 @@ class BasePlugin:
     def onStart(self):
         if Parameters["Mode6"] == "Debug":
             Domoticz.Debugging(1)
-        DumpConfigToLog()
+            DumpConfigToLog()
 
         if len(Devices) > 0:
             # Some devices are already defined 
             for aUnit in Devices:
                 self.lights[Devices[aUnit].DeviceID] = {"DeviceID": Devices[aUnit].DeviceID, "Unit": aUnit}
 
+        # Enable server-connection
+        self.httpServerConn = Domoticz.Connection(Name="Server Connection", Transport="TCP/IP", Protocol="HTTP", Port="8087")
+        self.httpServerConn.Listen()
+
+        # Enable client-connection
         self.httpConn = Domoticz.Connection(Name="HTTP Test", Transport="TCP/IP", Protocol="HTTP", Address=Parameters["Address"], Port=Parameters["Port"])
         self.httpConn.Connect()
 
@@ -164,7 +170,8 @@ class BasePlugin:
             Domoticz.Log("Failed to connect ("+str(Status)+") to: "+Parameters["Address"]+":"+Parameters["Port"]+" with error: "+Description)
 
     def onMessage(self, Connection, Data):
-        # DumpHTTPResponseToLog(Data)
+        if Parameters["Mode6"] == "Debug":
+            DumpHTTPResponseToLog(Data)
         
         strData = Data["Data"].decode("utf-8", "ignore")
         Status = int(Data["Status"])
