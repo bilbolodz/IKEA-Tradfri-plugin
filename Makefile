@@ -6,7 +6,11 @@ src = $(srcdir)/coap.c $(srcdir)/coap.go
 
 tradfri = bin/tradfri
 tradfri-src = src/tradfri/*
-tradfri-own-deps = src/github.com/moroen/canopus/* src/github.com/moroen/go-tradfricoap/*
+
+canopus = src/github.com/moroen/canopus/*
+go-tradfricoap = src/github.com/moroen/go-tradfricoap/*
+
+tradfri-own-deps = $(canopus) $(go-tradfricoap)
 
 tradfri-server = bin/tradfri-server
 tradfri-server-src = src/tradfri-server/*
@@ -22,6 +26,12 @@ $(tradfri-server): $(tradfri-server-src) $(tradfri-own-deps)
 $(tradfri-src) $(tradfri-server-src):
 	git submodule init; git submodule update -f --remote
 
+$(canopus):
+	go get -v github.com/moroen/canopus
+
+$(go-tradfricoap):
+	go get -v github.com/moroen/go-tradfricoap
+	
 
 
 clean: 
@@ -29,6 +39,7 @@ clean:
 	rm -f bin/tradfri-server
 	rm -rf src/tradfri/*
 	rm -rf src/tradfri-server/*
+	rm -rf src/github.com
 
 $(dep):
 	 go get -u github.com/golang/dep/cmd/dep
