@@ -19,8 +19,11 @@ $(tradfri-server): $(tradfri-server-src) $(dep)
 	cd src/tradfri-server; $(dep) ensure -v; go install -v
 	cd src/tradfri-server; cp -r styles $(GOPATH)/bin/; cp -r templates $(GOPATH)/bin/ 
 
-$(tradfri-src) $(tradfri-server-src):
-	git submodule init; git submodule update -f --remote
+$(tradfri-src): 
+	git clone https://github.com/moroen/go-tradfri.git src/tradfri
+
+$(tradfri-server-src):
+	git clone https://github.com/moroen/go-tradfri-server.git src/tradfri-server
 
 clean: 
 	rm -f bin/tradfri

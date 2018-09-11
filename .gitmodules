@@ -1,6 +1,0 @@
-[submodule "src/tradfri"]
-	path = src/tradfri
-	url = https://github.com/moroen/go-tradfri.git
-[submodule "src/tradfri-server"]
-	path = src/tradfri-server
-	url = https://github.com/moroen/go-tradfri-server.git
