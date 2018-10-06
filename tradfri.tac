@@ -368,16 +368,16 @@ class AdaptorFactory(ServerFactory):
             if self.groups:
                 self.groups = self.api(self.api(self.gateway.get_groups()))
         
-            try:
-                for dev in self.devices:
-                    if dev.has_light_control:
-                        verbosePrint("Adding light with ID: {0}".format(dev.id))
-                        self.ikeaLights[dev.id] = ikeaLight(factory=self, device=dev)
-                    if dev.has_socket_control:
-                        verbosePrint("Adding socket with ID: {0}".format(dev.id))
-                        self.ikeaSockets[dev.id] = ikeaSocket(factory=self, device=dev)
-            except Exception as e:
-                print("Unable to iterate devices")
+             # try:
+            for dev in self.devices:
+                if dev.has_light_control:
+                    verbosePrint("Adding light with ID: {0}".format(dev.id))
+                    self.ikeaLights[dev.id] = ikeaLight(factory=self, device=dev)
+                if dev.has_socket_control:
+                    verbosePrint("Adding socket with ID: {0}".format(dev.id))
+                    self.ikeaSockets[dev.id] = ikeaSocket(factory=self, device=dev)
+            #except Exception as e:
+            #    print("Unable to iterate devices")
 
             if self.groups:
                 try:
