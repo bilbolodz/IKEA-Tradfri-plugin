@@ -303,6 +303,7 @@ class AdaptorFactory(ServerFactory):
             self.initGateway(None, None)
             self.sendDeviceList(None)
             self.setState(None, "65548", False)
+            exit()
 
     def logout(self):
         # print("Logout")
